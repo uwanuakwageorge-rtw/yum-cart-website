@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Yum Cart · Mini pancakes made fresh at your event</title>
+  <meta name="description" content="Mini pancakes made fresh at your event, with toppings and drizzles your guests choose. Event packages from ₦2,000 per guest.">
+  <meta name="theme-color" content="#A11B18">
+
+  <!-- Link preview when the site is shared on WhatsApp, Instagram, X, etc. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The Yum Cart">
+  <meta property="og:title" content="The Yum Cart · Mini pancakes made fresh at your event">
+  <meta property="og:description" content="Warm mini pancakes cooked at your event, with toppings and drizzles your guests choose. Packages from ₦2,000 per guest.">
+  <meta property="og:image" content="img/share.jpg"><!-- LAUNCH: change to the full address, e.g. https://theyumcart.com/img/share.jpg -->
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Tab and home-screen icons -->
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+
+  <!-- ANNIVERSARY PROMO: everything marked data-promo hides itself after 30 November (see js/main.js) -->
+  <p class="promo" data-promo>
+    <span class="promo-label">Our 1st anniversary</span>
+    <span class="dot" aria-hidden="true">·</span>
+    <strong>10% off every event in November</strong>
+    <a class="promo-link" href="#book">Get a quote <span aria-hidden="true">→</span></a>
+  </p>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="The Yum Cart, home">
+        <img class="brand-mark" src="logo/mark.svg" alt="" width="60" height="43">
+        <img class="brand-word" src="logo/wordmark.svg" alt="The Yum Cart" width="220" height="44">
+      </a>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="#packages">Packages</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#about">About</a>
+        <a href="#faq">FAQ</a>
+        <a class="nav-quote" href="#book">Get a quote</a><!-- shown in the phone menu only -->
+      </nav>
+      <a class="btn btn-primary btn-sm header-cta" href="#book">Get a quote</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    </div>
+  </header>
+
+  <main id="top" tabindex="-1">
+    <!-- HERO (pink background, like style C) -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Sweet treat therapy</p>
+          <h1 class="hero-title" id="hero-title">
+            <span class="t1">Mini pancakes,</span>
+            <span class="t2">made fresh at your event</span>
+          </h1>
+          <p class="lead">We bring the cart and cook warm mini pancakes on the spot. Your guests pick their toppings and drizzles.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-primary" href="#book">Get a quote</a>
+            <a class="btn btn-ghost" href="#packages">See packages</a>
+          </div>
+          <ul class="facts">
+            <li><strong>From ₦2,000</strong> <span>per guest</span></li>
+            <li><strong>50</strong> <span>guest minimum</span></li>
+            <li><strong>Logo forks</strong> <span>in every package</span></li>
+          </ul>
+        </div>
+        <div class="hero-media">
+          <figure class="photo photo-main"><img src="img/ribbon-boxes.jpg" alt="Boxes of mini pancakes with wooden forks tied with pink ribbons and custom tags"></figure>
+          <figure class="photo photo-alt"><img src="img/crop-oreo-nutella.jpg" alt="Mini pancakes with Oreo crumbs and Nutella"></figure>
+          <p class="promo-badge" data-promo><span>1st anniversary</span><strong>10% off</strong><span>November events</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scalloped edge between the hero and the packages -->
+    <div class="scallops" aria-hidden="true"></div>
+
+    <!-- PACKAGES (style A cards, from her price list).
+         If prices change, update them here AND in PACKAGES at the top of js/main.js -->
+    <section class="packages" id="packages" aria-labelledby="packages-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Event packages</p>
+          <h2 id="packages-title">Pick your Yum</h2>
+          <p>Priced per guest. Every package comes with customized logo forks.</p>
+        </header>
+        <div class="package-grid">
+          <article class="package">
+            <h3>Mini Yum</h3>
+            <p class="price"><span class="amount">₦2,000</span> <span class="per">per guest</span></p>
+            <ul>
+              <li>4 mini pancakes</li><li>1 drizzle</li><li>1 topping</li><li>Customized logo forks</li>
+            </ul>
+            <a class="package-cta" href="#book" data-package="mini">Choose Mini Yum</a>
+          </article>
+          <article class="package">
+            <h3>Basic Yum</h3>
+            <p class="price"><span class="amount">₦3,000</span> <span class="per">per guest</span></p>
+            <ul>
+              <li>6 mini pancakes</li><li>1 drizzle</li><li>1 topping</li><li>Customized logo forks</li>
+            </ul>
+            <a class="package-cta" href="#book" data-package="basic">Choose Basic Yum</a>
+          </article>
+          <article class="package">
+            <h3>Classic Yum</h3>
+            <p class="price"><span class="amount">₦3,500</span> <span class="per">per guest</span></p>
+            <ul>
+              <li>8 mini pancakes</li><li>1 drizzle</li><li>1 topping</li><li>Customized logo forks</li><li>Branded paper lining</li>
+            </ul>
+            <a class="package-cta" href="#book" data-package="classic">Choose Classic Yum</a>
+          </article>
+          <article class="package package-featured">
+            <p class="tag">The full cart experience</p>
+            <h3>Premium Yum</h3>
+            <p class="price"><span class="amount">₦5,000</span> <span class="per">per guest</span></p>
+            <ul>
+              <li>12 mini pancakes</li><li>2 drizzles</li><li>1 topping</li><li>Customized cart</li><li>Customized logo forks</li><li>Branded paper lining</li>
+            </ul>
+            <a class="package-cta" href="#book" data-package="premium">Choose Premium Yum</a>
+          </article>
+        </div>
+        <p class="fine">Minimum of 50 guests</p>
+      </div>
+    </section>
+
+    <!-- TOPPINGS & DRIZZLES (from her event menu sign) -->
+    <section class="flavours" aria-labelledby="flavours-title">
+      <div class="container">
+        <div class="menu-card">
+          <header class="menu-head">
+            <p class="eyebrow">The menu</p>
+            <h2 id="flavours-title">Toppings &amp; drizzles</h2>
+          </header>
+          <div class="menu-cols">
+            <div class="menu-col">
+              <h3>Toppings</h3>
+              <ul><li>Sprinkles</li><li>Oreo cookie crumbs</li><li>Biscoff cookie crumbs</li><li>Shortbread crumbs</li></ul>
+            </div>
+            <div class="menu-col">
+              <h3>Drizzles</h3>
+              <ul><li>Nutella</li><li>Maple syrup</li><li>Biscoff sauce</li><li>Chocolate syrup</li></ul>
+            </div>
+            <div class="menu-col">
+              <h3>Extra</h3>
+              <ul><li>Powdered sugar</li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how" id="how" aria-labelledby="how-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">How it works</p>
+          <h2 id="how-title">Booking is easy</h2>
+        </header>
+        <ol class="steps">
+          <li><h3>Pick a package</h3><p>Choose how many mini pancakes each guest gets.</p></li>
+          <li><h3>Send your details</h3><p>Your date, venue and guest count. We reply with your quote.</p></li>
+          <li><h3>Secure your date</h3><p>Pay a 75% deposit by bank transfer. The balance is due the day before.</p></li>
+          <li><h3>We bring the cart</h3><p>Warm mini pancakes, cooked and served at your event.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- QUICK ESTIMATE (with the November discount) -->
+    <section class="quote" id="quote" aria-labelledby="quote-title">
+      <div class="container quote-inner">
+        <div class="quote-copy">
+          <p class="eyebrow">Quick estimate</p>
+          <h2 id="quote-title">What will it cost?</h2>
+          <p>Pick a package and enter your guest count to see what your event will cost.</p>
+        </div>
+        <form class="estimate" id="estimate" novalidate>
+          <label class="field">
+            <span class="label">Number of guests</span>
+            <input type="number" id="guests" name="guests" min="50" step="1" value="80" inputmode="numeric">
+          </label>
+          <label class="field">
+            <span class="label">Package</span>
+            <select id="package" name="package">
+              <option value="mini">Mini Yum · ₦2,000</option>
+              <option value="basic">Basic Yum · ₦3,000</option>
+              <option value="classic" selected>Classic Yum · ₦3,500</option>
+              <option value="premium">Premium Yum · ₦5,000</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="label">Event date <em>(optional)</em></span>
+            <input type="date" id="event-date" name="date">
+            <span class="help">Only needed to check the November discount.</span>
+          </label>
+          <div class="result" aria-live="polite">
+            <span class="label">Estimated total</span>
+            <s class="was" id="was" hidden></s>
+            <output class="total" id="total" for="guests package event-date">₦280,000</output>
+            <span class="plus">+ transport</span>
+            <p class="hint" id="hint">80 guests × ₦3,500</p>
+            <p class="promo-note" id="promo-note" data-promo>Event in November? It's <strong>₦252,000</strong> with our 10% anniversary discount.</p>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit">Request this quote</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- BOOK THE CART: the booking request. Sends everything to her WhatsApp, typed out. -->
+    <section class="book" id="book" aria-labelledby="book-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Book the cart</p>
+          <h2 id="book-title">Request your quote</h2>
+          <p>Send us your event details at least 48 hours ahead. We'll reply with your final quote.</p>
+        </header>
+
+        <form class="booking" id="booking" novalidate>
+          <div class="booking-grid">
+            <div class="field">
+              <label class="label" for="b-name">Your name</label>
+              <input id="b-name" name="name" type="text" autocomplete="name" required>
+              <p class="error" id="b-name-error" hidden></p>
+            </div>
+            <div class="field">
+              <label class="label" for="b-phone">Phone / WhatsApp number</label>
+              <input id="b-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="0801 234 5678" required>
+              <p class="error" id="b-phone-error" hidden></p>
+            </div>
+
+            <!-- Tap-to-pick choices: real radio buttons styled as pills, so only one per group can be picked -->
+            <div class="field select-field">
+              <label class="label" for="b-type">Type of event</label>
+              <select id="b-type" name="type" required>
+                <option value="">Choose one</option>
+                <option>Birthday</option>
+                <option>Wedding</option>
+                <option>Baby shower or naming</option>
+                <option>Corporate event</option>
+                <option>Church or religious event</option>
+                <option>School event</option>
+                <option>Other</option>
+              </select>
+              <p class="error" id="b-type-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label class="label" for="b-date">Event date</label>
+              <input id="b-date" name="date" type="date" required>
+              <p class="error" id="b-date-error" hidden></p>
+            </div>
+            <div class="field">
+              <label class="label" for="b-guests">Number of guests</label>
+              <input id="b-guests" name="guests" type="number" min="50" step="1" inputmode="numeric" required>
+              <p class="help">Not sure yet? Give your best estimate. We'll reconfirm it with you before the event.</p>
+              <p class="error" id="b-guests-error" hidden></p>
+            </div>
+            <div class="field select-field">
+              <!-- Tells her roughly how far the cart travels, so she can agree transport in chat -->
+              <label class="label" for="b-location">Event location</label>
+              <select id="b-location" name="location" required>
+                <option value="">Choose one</option>
+                <option>Elelenwo, Woji or nearby</option>
+                <option>Elsewhere in Port Harcourt</option>
+                <option>Outside PH (Rivers State)</option>
+                <option>Outside Rivers State</option>
+              </select>
+              <p class="help">Outside Rivers State means any other state, e.g. Aba, Owerri or Uyo.</p>
+              <p class="error" id="b-location-error" hidden></p>
+            </div>
+
+            <fieldset class="choices field-wide" id="b-package-group">
+              <legend class="label">Package</legend>
+              <div class="chip-list">
+                <label class="chip"><input type="radio" name="package" value="mini"><span>Mini Yum <small>₦2,000</small></span></label>
+                <label class="chip"><input type="radio" name="package" value="basic"><span>Basic Yum <small>₦3,000</small></span></label>
+                <label class="chip"><input type="radio" name="package" value="classic" checked><span>Classic Yum <small>₦3,500</small></span></label>
+                <label class="chip"><input type="radio" name="package" value="premium"><span>Premium Yum <small>₦5,000</small></span></label>
+              </div>
+            </fieldset>
+
+
+            <div class="field">
+              <label class="label" for="b-venue">Venue name <em>(optional)</em></label>
+              <input id="b-venue" name="venue" type="text" placeholder="Hall, hotel, church, home…">
+            </div>
+            <div class="field">
+              <label class="label" for="b-time">Start time <em>(optional)</em></label>
+              <input id="b-time" name="time" type="time">
+            </div>
+            <div class="field field-wide">
+              <label class="label" for="b-address">Venue address</label>
+              <input id="b-address" name="address" type="text" autocomplete="street-address" placeholder="Street, area, city" required>
+              <p class="error" id="b-address-error" hidden></p>
+            </div>
+
+            <div class="field select-field">
+              <label class="label" for="b-source">How did you hear about us? <em>(optional)</em></label>
+              <select id="b-source" name="source">
+                <option value="">Choose one</option>
+                <option>Instagram</option>
+                <option>WhatsApp status</option>
+                <option>A friend</option>
+                <option>Saw the cart at an event</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="field field-wide">
+              <label class="label" for="b-notes">Anything else? <em>(optional)</em></label>
+              <textarea id="b-notes" name="notes" rows="3" placeholder="Theme colours, custom tags, dietary needs…"></textarea>
+            </div>
+          </div>
+
+          <p class="booking-summary" id="booking-summary" aria-live="polite" hidden></p>
+          <button class="btn btn-primary btn-block" type="submit" name="via" value="whatsapp">Send request on WhatsApp</button>
+          <!-- Appears once BUSINESS.email is set in js/main.js -->
+          <button class="send-alt" type="submit" name="via" value="email" id="send-email" hidden>Or send your request by email</button>
+          <p class="fine-print">Sending this doesn't book your date yet. We'll confirm availability and your final quote first, then a 75% deposit secures your date.</p>
+        </form>
+
+        <!-- Shown after the form is sent -->
+        <div class="booking-done" id="booking-done" hidden tabindex="-1">
+          <h3>Almost done!</h3>
+          <p id="done-text">WhatsApp should now be open with your request typed out. Tap Send in WhatsApp, and we'll reply with your quote.</p>
+          <!-- Opens WhatsApp (or email) again with the same message, in case it didn't open the first time -->
+          <a class="btn btn-primary" id="open-again" href="#" hidden>Open WhatsApp again</a>
+          <label class="label" id="copy-label" for="booking-message">Still not opening? Copy your request and send it to us:</label>
+          <textarea id="booking-message" rows="12" readonly></textarea>
+          <div class="done-actions">
+            <button class="btn btn-ghost" type="button" id="copy-message">Copy my request</button>
+            <a class="btn btn-ghost" id="email-request" href="#" hidden>Email it instead</a>
+            <a class="btn btn-ghost" id="whatsapp-request" href="#" target="_blank" rel="noopener" hidden>Send on WhatsApp instead</a>
+            <button class="btn btn-ghost" type="button" id="edit-request">Edit my request</button>
+          </div>
+          <p class="setup-note" id="setup-note" hidden>Setup needed: add the business WhatsApp number in js/main.js (BUSINESS.whatsapp), then this button opens WhatsApp.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY (her photos) -->
+    <section class="gallery" id="gallery" aria-labelledby="gallery-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Gallery</p>
+          <h2 id="gallery-title">Fresh from the cart</h2>
+        </header>
+        <div class="gallery-grid">
+          <figure class="g1"><img src="img/trays.jpg" alt="Seven trays of mini pancakes with different toppings and drizzles" loading="lazy"><figcaption>Pick your toppings</figcaption></figure>
+          <figure class="g2"><img src="img/hand-tray.jpg" alt="A tray of mini pancakes loaded with chocolate chips and sweets" loading="lazy"><figcaption>Loaded up</figcaption></figure>
+          <figure class="g3"><img src="img/crop-biscoff.jpg" alt="Mini pancakes with Biscoff crumbs and a drizzle" loading="lazy"><figcaption>Biscoff crumbs</figcaption></figure>
+          <figure class="g4"><img src="img/crop-marshmallow.jpg" alt="Mini pancakes with marshmallows and a red drizzle" loading="lazy"><figcaption>Marshmallow minis</figcaption></figure>
+          <figure class="g5"><img src="img/redvelvet-nutella.jpg" alt="Two trays of mini pancakes, one with white drizzle and crumbs, one with chocolate drizzle" loading="lazy"><figcaption>Fresh off the pan</figcaption></figure>
+          <figure class="g6"><img src="img/crop-chocochip.jpg" alt="Mini pancakes with chocolate chips and a drizzle" loading="lazy"><figcaption>Chocolate chips</figcaption></figure>
+        </div>
+        <!-- Filled in by js/main.js once her Instagram handle is added -->
+        <p class="gallery-more" id="gallery-more" hidden></p>
+      </div>
+    </section>
+
+    <!-- ABOUT US -->
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div class="container about-inner">
+        <figure class="about-photo"><img src="img/cart-team.jpg" alt="The Yum Cart team behind the branded cart at an event" loading="lazy"></figure>
+        <div class="about-copy">
+          <p class="eyebrow">About us</p>
+          <h2 id="about-title">Sweet treat therapy, <em>made in Port Harcourt</em></h2>
+          <p>The Yum Cart is a mini pancake cart for events in Port Harcourt. We bring the cart to your venue, cook warm mini pancakes on the spot, and let your guests build their own with toppings and drizzles.</p>
+          <!-- A note from the founder, in her own words -->
+          <figure class="founder-note">
+            <blockquote>
+              <p>Hi, I'm Apugo Judith. I started The Yum Cart in November 2025.</p>
+              <p>Honestly, I started it because I wanted to build something of my own, and I also genuinely love sweet things. I've always enjoyed the idea of creating them myself, so I thought, why not turn something I enjoy into a business?</p>
+              <p>I wanted to create a fun dessert experience that people could enjoy at their events, and that's really how The Yum Cart started. Every tray is made with love and lots of sweetness, just the way I'd make it for my own family.</p>
+            </blockquote>
+            <figcaption>Apugo Judith, founder</figcaption>
+          </figure>
+          <ul class="about-points">
+            <li>Cooked fresh at your event</li>
+            <li>Custom logo forks with every package</li>
+            <li>A friendly team at the cart</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ: her booking rules -->
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Good to know</p>
+          <h2 id="faq-title">Questions, answered</h2>
+        </header>
+        <div class="faq-list">
+          <details>
+            <summary>How far ahead should I book?</summary>
+            <p>At least 48 hours before your event. Booking early is the best way to make sure your date is free.</p>
+          </details>
+          <details>
+            <summary>How do I secure my date?</summary>
+            <p>Once we've agreed your quote, pay a 75% deposit by bank transfer. The remaining 25% is due the day before your event.</p>
+          </details>
+          <details>
+            <summary>What do you need from me before the event?</summary>
+            <p>A quick phone call and your event's invitation card (IV), so we can plan the setup.</p>
+          </details>
+          <details>
+            <summary>What if you can't take my booking?</summary>
+            <p>If we can't confirm your booking, we refund your deposit in full within 48 hours.</p>
+          </details>
+          <details>
+            <summary>I'm not sure how many guests are coming.</summary>
+            <p>That's fine. Give us your best estimate when you book, and we'll reconfirm the final number with you before the event.</p>
+          </details>
+          <details>
+            <summary>Where do you cater, and how much is transport?</summary>
+            <p>Events across Port Harcourt, and outside it by arrangement. Transport depends on your event location and is agreed with you in chat.</p>
+          </details>
+          <details>
+            <summary>Do you deliver individual orders?</summary>
+            <p>Not yet. For now we cater events, with the cart and our team on site.</p>
+          </details>
+          <details data-promo>
+            <summary>How does the November discount work?</summary>
+            <p>Every event held from 1 to 30 November gets 10% off, whatever the occasion.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING CALL TO ACTION -->
+    <section class="cta-band" aria-labelledby="cta-title">
+      <div class="container cta-inner">
+        <h2 id="cta-title"><span class="t1">Planning a celebration?</span> <span class="t2">Let's bring the cart.</span></h2>
+        <a class="btn btn-primary" href="#book">Get a quote</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <img class="footer-logo" src="logo/lockup.svg" alt="The Yum Cart, Sweet Treat Therapy">
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#packages">Packages</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#book">Get a quote</a>
+      </nav>
+      <!-- WhatsApp, Instagram and service area: filled in by js/main.js from BUSINESS settings -->
+      <ul class="footer-contact" id="footer-contact"></ul>
+      <p class="small">Mini pancakes for events <span aria-hidden="true">·</span> Minimum 50 guests</p>
+      <p class="small">© 2026 The Yum Cart</p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp chat button: appears once BUSINESS.whatsapp is set -->
+  <a class="wa-float" id="wa-float" hidden target="_blank" rel="noopener" aria-label="Chat with The Yum Cart on WhatsApp">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 3C6.9 3 3 6.6 3 11.1c0 2.3 1 4.4 2.7 5.9L5 21l4.2-1.9c.9.3 1.8.4 2.8.4 5.1 0 9-3.6 9-8.1S17.1 3 12 3z"/></svg>
+    <span>Chat on WhatsApp</span>
+  </a>
+</body>
+</html>

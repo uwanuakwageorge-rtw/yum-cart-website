@@ -1,0 +1,567 @@
+/* =====================================================================
+   THE YUM CART · styles.css
+   Style B (soft boutique) + her corrections:
+   - pink backgrounds like style C
+   - "Pick your Yum" package cards like style A
+   - 10% November anniversary promo
+
+   Sections:  1 Tokens · 2 Base · 3 Buttons · 4 Promo bar · 5 Header · 6 Hero
+              7 Scallops · 8 Packages · 9 Menu · 10 How it works · 11 Estimate
+              12 Gallery · 13 CTA + footer · 14 Tablet · 15 Phone
+              16 Package buttons · 17 Booking request · 18 Contact links + WhatsApp button · 19 Skip link
+              20 About us · 21 FAQ · 22 Email button + phone menu quote link · 23 Founder note
+              24 Tap-to-pick choices + decorated dropdowns (booking form)
+   ===================================================================== */
+
+/* ---------- 1. Tokens: change a colour or font here and it updates everywhere ---------- */
+:root {
+  --cream: #FFFAF7;        /* page background */
+  --cream-warm: #FFF4EF;   /* text on the red package cards */
+  --blush: #F9E8EF;        /* soft pink background (from style C) */
+  --pink: #E1B5CE;         /* brand pink (from her logo) */
+  --line: #EAD5DE;         /* thin lines */
+  --red: #A11B18;          /* brand red (from her logo) */
+  --red-deep: #7C1310;
+  --ink: #3A2329;          /* main text */
+  --ink-soft: #7B5F67;     /* softer text */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-bold: 'Anton', Impact, 'Arial Narrow', sans-serif;   /* only for "Pick your Yum" */
+  --font-body: 'Montserrat', system-ui, sans-serif;
+}
+
+/* ---------- 2. Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--cream); color: var(--ink);
+  font-family: var(--font-body); font-size: 16.5px; line-height: 1.75;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+img { display: block; max-width: 100%; height: auto; }
+h1, h2, h3, p, ul, ol, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+button, input, select { font: inherit; color: inherit; }
+[hidden] { display: none !important; }          /* lets JS hide things with the hidden attribute */
+:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+
+.container { width: min(1200px, 100% - 48px); margin-inline: auto; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 14px; margin-bottom: 18px;
+  font-weight: 500; font-size: 11.5px; letter-spacing: .34em; text-transform: uppercase; color: var(--ink-soft);
+}
+.eyebrow::before, .section-head .eyebrow::after, .menu-head .eyebrow::after {
+  content: ""; width: 30px; height: 1px; background: currentColor;
+}
+h2 { font-family: var(--font-display); font-weight: 500; font-size: 58px; line-height: 1.05; color: var(--ink); }
+.section-head { text-align: center; max-width: 640px; margin: 0 auto 48px; }
+.section-head p:not(.eyebrow) { margin-top: 14px; color: var(--ink-soft); }
+/* Cormorant uses old-style numbers by default; prices read better with lining numbers */
+.hero-title, h2, .facts strong, .total, .was, .field input, .field select, .steps li::before, .promo-badge strong {
+  font-variant-numeric: lining-nums;
+}
+
+/* ---------- 3. Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: 0; border-radius: 0; cursor: pointer; white-space: nowrap; text-align: center;
+  font-family: var(--font-body); font-weight: 500; font-size: 12px; letter-spacing: .24em; text-transform: uppercase;
+  transition: background-color .15s ease, color .15s ease, transform .15s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--red); color: #fff; padding: 19px 34px; }
+.btn-primary:hover { background: var(--red-deep); }
+.btn-ghost { background: none; color: var(--ink); padding: 8px 0; border-bottom: 1px solid var(--ink); }
+.btn-ghost::after { content: "→"; letter-spacing: 0; font-size: 15px; }
+.btn-ghost:hover { color: var(--red); border-color: var(--red); }
+.btn-sm { padding: 14px 24px; font-size: 11px; }
+.btn-block { width: 100%; }
+
+/* ---------- 4. Promo bar (anniversary) ---------- */
+.promo {
+  background: var(--red); color: #fff; text-align: center; padding: 11px 16px;
+  font-weight: 500; font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+}
+.promo strong { font-weight: 700; }
+.promo .dot { margin-inline: 8px; opacity: .7; }
+.promo-link { margin-left: 18px; white-space: nowrap; font-weight: 600; border-bottom: 1px solid rgba(255, 255, 255, .7); padding-bottom: 1px; }
+.promo-link:hover { border-bottom-color: #fff; }
+
+/* ---------- 5. Header ---------- */
+.site-header { position: relative; z-index: 5; background: var(--cream); border-bottom: 1px solid var(--line); }
+.header-inner { display: flex; align-items: center; gap: 36px; min-height: 92px; }
+.brand { display: flex; align-items: center; gap: 12px; margin-right: auto; }
+.brand img { width: auto; }
+.brand-mark { height: 36px; }
+.brand-word { height: 30px; }
+.nav { display: flex; gap: 30px; }
+.nav a { font-weight: 500; font-size: 11.5px; letter-spacing: .24em; text-transform: uppercase; }
+.nav a:hover { color: var(--red); }
+.menu-btn { display: none; background: none; border: 1px solid var(--ink); padding: 9px 16px; font-weight: 500; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; }
+
+/* ---------- 6. Hero (pink, like style C) ---------- */
+.hero { background: var(--blush); padding: 96px 0 116px; }
+.hero-inner { display: grid; grid-template-columns: 1.02fr .98fr; gap: 64px; align-items: center; }
+.hero-title { font-family: var(--font-display); font-weight: 500; font-size: 84px; line-height: .98; letter-spacing: -.01em; }
+.hero-title .t1, .hero-title .t2 { display: block; }
+.hero-title .t2 { font-style: italic; color: var(--red); }
+.lead { margin-top: 30px; font-size: 17px; color: var(--ink-soft); max-width: 29em; }
+.hero-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 32px; margin-top: 38px; }
+.facts {
+  display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 44px;
+  margin-top: 54px; padding-top: 28px; border-top: 1px solid rgba(161, 27, 24, .16);
+}
+.facts li { display: grid; gap: 2px; }
+.facts strong { font-family: var(--font-display); font-weight: 600; font-size: 27px; line-height: 1.1; }
+.facts span { font-size: 10.5px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-soft); }
+
+.hero-media { position: relative; padding: 22px 22px 0 0; }
+.hero-media::before { /* thin arch outline behind the photo, like her menu sign */
+  content: ""; position: absolute; top: 0; right: 0; width: calc((100% - 22px) * .8); aspect-ratio: 4 / 5;
+  border: 1px solid rgba(161, 27, 24, .35); border-radius: 999px 999px 0 0;
+}
+.photo { margin: 0; overflow: hidden; }
+.photo img { width: 100%; height: 100%; object-fit: cover; }
+.photo-main { position: relative; z-index: 1; width: 80%; margin-left: auto; aspect-ratio: 4 / 5; border-radius: 999px 999px 0 0; }
+.photo-main img { object-position: center 40%; }
+.photo-alt { /* the small circle */
+  position: absolute; z-index: 2; left: 0; bottom: -36px; width: 36%; aspect-ratio: 1; border-radius: 50%;
+  border: 10px solid #fff; box-shadow: 0 24px 40px -24px rgba(58, 35, 41, .5);
+}
+.photo-alt img { object-position: 45% 50%; }
+.promo-badge { /* red anniversary badge */
+  position: absolute; z-index: 3; top: 9%; left: 3%; width: 138px; height: 138px; border-radius: 50%;
+  display: grid; place-content: center; gap: 3px; text-align: center; transform: rotate(-6deg);
+  background: var(--red); color: #fff; box-shadow: 0 20px 34px -16px rgba(124, 19, 16, .65);
+}
+.promo-badge::before { content: ""; position: absolute; inset: 7px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .55); }
+.promo-badge span { font-size: 8.5px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
+.promo-badge strong { font-family: var(--font-display); font-weight: 600; font-size: 36px; line-height: 1; }
+
+/* ---------- 7. Scallops: soft pink hanging into the packages section ---------- */
+.scallops {
+  height: 22px;
+  background: radial-gradient(circle at 22px 0, var(--blush) 21.5px, transparent 22px) 0 0 / 44px 22px repeat-x, var(--pink);
+}
+
+/* ---------- 8. Packages: "Pick your Yum" in style A ---------- */
+.packages { background: var(--pink); padding: 72px 0 100px; }
+.packages .eyebrow { font-weight: 700; font-size: 12.5px; letter-spacing: .42em; color: var(--red-deep); margin-bottom: 14px; }
+.packages .eyebrow::before, .packages .eyebrow::after { display: none; }
+.packages h2 {
+  font-family: var(--font-bold); font-weight: 400; text-transform: uppercase;
+  font-size: 68px; line-height: 1; letter-spacing: .01em; color: var(--red);
+}
+.packages .section-head p:not(.eyebrow) { font-weight: 500; color: var(--ink); }
+.package-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: stretch; }
+.package {
+  position: relative; display: flex; flex-direction: column;
+  background: var(--red); color: var(--cream-warm); border-radius: 22px; padding: 30px 26px;
+  box-shadow: 0 16px 30px -18px rgba(90, 15, 25, .7);
+}
+.package h3 { font-weight: 700; font-size: 19px; letter-spacing: .06em; text-transform: uppercase; }
+.package .price {
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px;
+  margin: 8px 0 18px; padding-bottom: 16px; border-bottom: 2px solid rgba(255, 244, 239, .85);
+}
+.package .amount { font-family: var(--font-bold); font-size: 46px; line-height: 1; letter-spacing: .01em; }
+.package .per { font-weight: 600; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; opacity: .85; }
+.package ul { margin-bottom: 26px; }
+.package li { position: relative; padding: 5px 0 5px 22px; font-weight: 500; font-size: 15.5px; }
+.package li::before { content: "♥"; position: absolute; left: 0; top: 7px; font-size: 12px; color: var(--pink); }
+.package .tag { display: none; }
+.package-featured { background: var(--red-deep); padding-top: 64px; overflow: hidden; }
+.package-featured::before { /* a little awning: Premium comes with a customized cart */
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 34px;
+  background: repeating-linear-gradient(90deg, var(--cream-warm) 0 34px, var(--red) 34px 68px);
+  -webkit-mask: radial-gradient(circle at 17px 17px, #000 16.5px, transparent 17px) 0 0 / 34px 34px repeat-x,
+                linear-gradient(#000 0 0) 0 0 / 100% 17px no-repeat;
+          mask: radial-gradient(circle at 17px 17px, #000 16.5px, transparent 17px) 0 0 / 34px 34px repeat-x,
+                linear-gradient(#000 0 0) 0 0 / 100% 17px no-repeat;
+}
+.package-featured .tag {
+  display: inline-block; align-self: flex-start; margin-bottom: 12px; padding: 6px 12px; border-radius: 999px;
+  background: var(--cream-warm); color: var(--red); font-weight: 700; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
+}
+.fine {
+  text-align: center; margin-top: 30px;
+  font-weight: 700; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--red-deep);
+}
+
+/* ---------- 9. Toppings & drizzles: a printed menu ---------- */
+.flavours { padding: 116px 0; }
+.menu-card {
+  max-width: 900px; margin: 0 auto; padding: 64px 56px 60px; text-align: center; background: #fff;
+  border: 1px solid var(--line); outline: 1px solid var(--line); outline-offset: -14px;
+}
+.menu-head { margin-bottom: 40px; }
+.menu-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.menu-col h3 { font-weight: 500; font-size: 11px; letter-spacing: .32em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+.menu-col li { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 23px; line-height: 1.7; }
+
+/* ---------- 10. How it works ---------- */
+.how { padding: 0 0 116px; }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px; counter-reset: step; }
+.steps li { counter-increment: step; border-top: 1px solid var(--ink); padding-top: 26px; }
+.steps li::before {
+  content: counter(step, decimal-leading-zero); display: block; margin-bottom: 10px;
+  font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 46px; line-height: 1; color: var(--red);
+}
+.steps h3 { font-family: var(--font-display); font-weight: 600; font-size: 29px; line-height: 1.15; margin-bottom: 8px; }
+.steps p { color: var(--ink-soft); font-size: 15.5px; }
+
+/* ---------- 11. Quick estimate ---------- */
+.quote { background: var(--blush); padding: 110px 0; }
+.quote-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.quote-copy p:not(.eyebrow) { margin-top: 16px; color: var(--ink-soft); max-width: 26em; }
+.estimate { display: grid; gap: 26px; background: #fff; border: 1px solid var(--line); padding: 44px 44px 40px; }
+.field { display: grid; gap: 8px; }
+.label { font-size: 10.5px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-soft); }
+.label em { font-style: normal; letter-spacing: .1em; text-transform: none; opacity: .8; }
+.field input, .field select {
+  width: 100%; border: 0; border-bottom: 1px solid var(--ink); border-radius: 0; background: transparent;
+  padding: 6px 0 10px; font-family: var(--font-display); font-weight: 500; font-size: 27px; outline: none;
+}
+.field input[type="date"] { font-size: 23px; min-height: 48px; }
+.field input:focus, .field select:focus { border-bottom-color: var(--red); }
+.field select {
+  appearance: none; -webkit-appearance: none; padding-right: 36px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%233A2329' stroke-width='1.4'/%3E%3C/svg%3E") no-repeat right 4px center;
+}
+.result {
+  display: grid; grid-template-columns: auto 1fr; align-items: baseline; column-gap: 10px;
+  border-top: 1px solid var(--line); padding-top: 22px;
+}
+.result .label, .result .was, .result .hint, .result .promo-note { grid-column: 1 / -1; }
+.result .label { margin-bottom: 4px; }
+.was { font-family: var(--font-display); font-size: 24px; color: var(--ink-soft); text-decoration-thickness: 1px; }
+.total { font-family: var(--font-display); font-weight: 500; font-size: 58px; line-height: 1; color: var(--red); }
+.plus { font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+.hint { margin-top: 6px; font-size: 13.5px; color: var(--ink-soft); }
+.hint.warn { color: var(--red); font-weight: 600; }
+.promo-note {
+  margin-top: 16px; padding: 12px 16px; background: var(--blush); border-left: 3px solid var(--red);
+  font-size: 14px; line-height: 1.55; color: var(--ink);
+}
+.promo-note strong { color: var(--red); }
+.promo-note.applied { background: var(--red); border-left-color: var(--red-deep); color: #fff; }
+.promo-note.applied strong { color: #fff; }
+
+/* ---------- 12. Gallery ---------- */
+.gallery { padding: 116px 0 110px; border-top: 1px solid var(--line); }
+.gallery-grid { display: grid; grid-template-columns: 1.15fr 1.15fr 1fr 1fr; grid-auto-rows: 250px; gap: 18px; }
+.gallery-grid figure { position: relative; overflow: hidden; margin: 0; }
+.gallery-grid img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-grid .g1, .gallery-grid .g2 { grid-row: span 2; }
+.gallery-grid .g1 { border-radius: 999px 999px 0 0; }
+.gallery-grid figcaption {
+  position: absolute; left: 14px; bottom: 14px; background: var(--cream); color: var(--ink);
+  padding: 7px 12px; font-size: 9.5px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase;
+}
+
+/* ---------- 13. Closing CTA + footer ---------- */
+.cta-band { padding: 110px 0 120px; border-top: 1px solid var(--line); }
+.cta-inner { display: grid; justify-items: center; gap: 28px; text-align: center; }
+.cta-inner h2 { font-size: 66px; }
+.cta-inner h2 span { display: block; }
+.cta-inner h2 .t2 { font-style: italic; color: var(--red); }
+.site-footer { background: var(--blush); padding: 72px 0 48px; color: var(--ink-soft); }
+.footer-inner { display: grid; justify-items: center; gap: 18px; text-align: center; }
+.footer-logo { width: 230px; height: auto; }
+.footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 28px; }
+.footer-nav a { font-size: 11px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--ink); }
+.small { font-size: 12.5px; }
+
+/* ---------- 14. Tablet ---------- */
+@media (max-width: 1100px) {
+  .package-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-inner { gap: 40px; }
+  .steps { grid-template-columns: repeat(2, 1fr); gap: 40px 36px; }
+}
+
+/* ---------- 15. Phone ---------- */
+@media (max-width: 800px) {
+  body { font-size: 16px; }
+  .container { width: calc(100% - 32px); }
+  h2 { font-size: 44px; }
+  .section-head { margin-bottom: 32px; }
+
+  .promo { font-size: 10.5px; letter-spacing: .1em; padding: 10px 14px; line-height: 1.5; }
+  .promo-label, .promo .dot { display: none; }
+  .promo-link { margin-left: 10px; }
+
+  .header-inner { min-height: 70px; gap: 12px; }
+  .brand-mark { height: 28px; } .brand-word { height: 24px; }
+  .nav {
+    display: none; position: absolute; left: 16px; right: 16px; top: 100%; flex-direction: column; gap: 0; padding: 8px 0;
+    background: var(--cream); border: 1px solid var(--line);
+  }
+  .site-header.nav-open .nav { display: flex; }
+  .nav a { padding: 14px 20px; }
+  .menu-btn { display: inline-flex; align-items: center; cursor: pointer; }
+  .header-cta { display: none; }
+
+  .hero { padding: 48px 0 84px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero-title { font-size: 56px; }
+  .lead { font-size: 16px; margin-top: 24px; }
+  .hero-ctas { gap: 24px; }
+  .facts { gap: 18px; margin-top: 40px; padding-top: 22px; }
+  .facts strong { font-size: 20px; }
+  .facts span { font-size: 8.5px; letter-spacing: .16em; }
+  .hero-media { padding: 16px 16px 0 0; }
+  .hero-media::before { width: calc((100% - 16px) * .84); }
+  .photo-main { width: 84%; }
+  .photo-alt { width: 40%; border-width: 7px; bottom: -28px; }
+  .promo-badge { width: 118px; height: 118px; top: 5%; left: 0; }
+  .promo-badge span { font-size: 7px; letter-spacing: .1em; }
+  .promo-badge strong { font-size: 30px; }
+
+  .packages { padding: 52px 0 72px; }
+  .packages h2 { font-size: 50px; }
+  .package-grid { grid-template-columns: 1fr; }
+
+  .flavours { padding: 80px 0; }
+  .menu-card { padding: 48px 26px 44px; outline-offset: -10px; }
+  .menu-cols { grid-template-columns: 1fr; gap: 26px; }
+  .menu-col li { font-size: 21px; }
+
+  .how { padding-bottom: 84px; }
+  .steps { grid-template-columns: 1fr; gap: 30px; }
+
+  .quote { padding: 80px 0; }
+  .quote-inner { grid-template-columns: 1fr; gap: 28px; }
+  .estimate { padding: 30px 24px; }
+  .total { font-size: 48px; }
+
+  .gallery { padding: 84px 0 80px; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 170px; gap: 10px; }
+  .gallery-grid figcaption { left: 8px; bottom: 8px; font-size: 8px; padding: 5px 8px; letter-spacing: .16em; }
+
+  .cta-band { padding: 84px 0 90px; }
+  .cta-inner h2 { font-size: 46px; }
+}
+
+
+/* ---------- 16. Package buttons: "Choose Classic Yum" ---------- */
+.package-cta {
+  margin-top: auto; display: flex; justify-content: center; align-items: center; padding: 13px 18px;
+  border: 2px solid rgba(255, 244, 239, .85); border-radius: 999px; color: var(--cream-warm);
+  font-weight: 700; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; text-align: center;
+  transition: background-color .15s ease, color .15s ease;
+}
+.package-cta:hover { background: var(--cream-warm); color: var(--red); }
+
+/* small grey helper text under a field */
+.help { font-size: 12.5px; line-height: 1.5; color: var(--ink-soft); }
+
+/* ---------- 17. Booking request ---------- */
+.book { padding: 110px 0 116px; }
+.booking, .booking-done {
+  max-width: 880px; margin: 0 auto; background: #fff; border: 1px solid var(--line); padding: 48px 48px 40px;
+}
+.booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 32px; }
+.field-wide { grid-column: 1 / -1; }
+.booking .field { align-content: start; }   /* keeps labels and boxes lined up across a row */
+.booking .field input, .booking .field select, .booking .field textarea {
+  font-family: var(--font-body); font-weight: 500; font-size: 16px; padding: 10px 0 9px;
+}
+.booking .field input[type="date"], .booking .field input[type="time"] { min-height: 46px; }
+.booking .field textarea, #booking-message {
+  width: 100%; resize: vertical; border: 1px solid var(--line); border-radius: 0; background: var(--cream);
+  padding: 12px 14px; font-family: var(--font-body); font-size: 16px; line-height: 1.6; color: var(--ink); outline: none;
+}
+.booking .field textarea:focus { border-color: var(--red); }
+.booking .field input::placeholder, .booking .field textarea::placeholder { color: #B79FA7; }
+.booking [aria-invalid="true"] { border-bottom-color: var(--red) !important; }
+.error { font-size: 13px; font-weight: 600; color: var(--red); }
+.booking-summary {
+  margin: 34px 0 18px; padding: 14px 18px; background: var(--blush); border-left: 3px solid var(--red);
+  font-size: 15px; color: var(--ink);
+}
+.booking-summary strong { color: var(--red); font-family: var(--font-display); font-size: 24px; font-weight: 600; font-variant-numeric: lining-nums; }
+.booking > .btn-primary { margin-top: 18px; }
+.booking-summary:not([hidden]) + .btn-primary { margin-top: 0; }
+.fine-print { margin-top: 14px; text-align: center; font-size: 12.5px; color: var(--ink-soft); }
+.booking-done { display: grid; gap: 16px; }
+.booking-done:focus { outline: none; }
+.booking-done h3 { font-family: var(--font-display); font-weight: 600; font-size: 38px; line-height: 1.1; color: var(--red); }
+.booking-done > p:not(.setup-note) { color: var(--ink-soft); }
+.label .contact-detail { text-transform: none; letter-spacing: .02em; font-size: 12.5px; font-weight: 600; color: var(--ink); }
+#booking-message { font-size: 14.5px; }
+#open-again { justify-self: start; margin-bottom: 10px; }   /* the main next step, under the "Almost done" text */
+#copy-message::after { content: none; }                     /* no arrow: copying doesn't go anywhere */
+.done-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 28px; }
+.setup-note { padding: 12px 14px; border: 1px dashed var(--red); font-size: 13px; color: var(--red-deep); }
+
+/* ---------- 18. Contact links + floating WhatsApp button ---------- */
+.gallery-more { margin-top: 36px; text-align: center; }
+.gallery-more .btn { max-width: 100%; white-space: normal; }   /* never wider than the screen */
+.footer-contact { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 28px; font-size: 14px; color: var(--ink); }
+.footer-contact a { border-bottom: 1px solid currentColor; }
+.footer-contact a:hover { color: var(--red); }
+.footer-contact:empty { display: none; }
+.wa-float {
+  position: fixed; right: 22px; bottom: 22px; z-index: 20; display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 20px 13px 16px; border-radius: 999px; background: var(--red); color: #fff;
+  font-weight: 600; font-size: 13px; letter-spacing: .04em; box-shadow: 0 14px 30px -12px rgba(124, 19, 16, .7);
+}
+.wa-float:hover { background: var(--red-deep); }
+
+/* ---------- 19. Skip link: lets keyboard users jump past the menu ---------- */
+.skip-link {
+  position: absolute; left: -9999px; top: 12px; z-index: 30; padding: 10px 16px; background: var(--ink); color: #fff;
+  font-size: 13px; font-weight: 600;
+}
+.skip-link:focus { left: 12px; }
+main:focus { outline: none; }
+
+@media (max-width: 800px) {
+  .book { padding: 80px 0 84px; }
+  .booking, .booking-done { padding: 30px 22px 28px; }
+  .booking-grid { grid-template-columns: 1fr; gap: 22px; }
+  .booking-done h3 { font-size: 32px; }
+  #open-again { justify-self: stretch; }
+  .done-actions { gap: 20px; }
+  .wa-float { right: 14px; bottom: 14px; padding: 12px; }
+  .wa-float span { display: none; }   /* icon only on phones, so it doesn't cover the page */
+}
+
+/* ---------- 20. About us ---------- */
+.about { background: var(--blush); padding: 110px 0; }
+.about-inner { display: grid; grid-template-columns: .9fr 1.1fr; gap: 80px; align-items: center; }
+.about-photo { position: relative; margin: 0; padding: 18px 0 0 18px; }
+.about-photo::before { /* thin arch outline behind the photo, like the hero */
+  content: ""; position: absolute; top: 0; left: 0; width: calc(100% - 18px); aspect-ratio: 4 / 5;
+  border: 1px solid rgba(161, 27, 24, .35); border-radius: 999px 999px 0 0;
+}
+.about-photo img {
+  position: relative; z-index: 1; width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+  border-radius: 999px 999px 0 0;
+}
+.about-copy h2 em { display: block; font-style: italic; color: var(--red); }
+.about-copy p:not(.eyebrow) { margin-top: 18px; color: var(--ink-soft); max-width: 33em; }
+.about-copy h2 + p { margin-top: 28px; }
+.about-points { display: grid; gap: 10px; max-width: 33em; margin-top: 30px; padding-top: 26px; border-top: 1px solid rgba(161, 27, 24, .16); }
+.about-points li { position: relative; padding-left: 26px; font-weight: 500; color: var(--ink); }
+.about-points li::before { content: "♥"; position: absolute; left: 0; top: 3px; font-size: 13px; color: var(--red); }
+
+/* ---------- 21. FAQ: tap a question to open it ---------- */
+.faq { padding: 110px 0 116px; }
+.faq-list { max-width: 820px; margin: 0 auto; border-top: 1px solid var(--line); }
+.faq-list details { border-bottom: 1px solid var(--line); }
+.faq-list summary {
+  position: relative; display: block; list-style: none; cursor: pointer; padding: 22px 52px 22px 0;
+  font-family: var(--font-display); font-weight: 600; font-size: 25px; line-height: 1.3; color: var(--ink);
+}
+.faq-list summary::-webkit-details-marker { display: none; }   /* hides Safari's default arrow */
+.faq-list summary::after {
+  content: "+"; position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  font-family: var(--font-body); font-weight: 300; font-size: 30px; line-height: 1; color: var(--red);
+  transition: transform .2s ease;
+}
+.faq-list details[open] summary::after { transform: translateY(-50%) rotate(45deg); }   /* + turns into × */
+@media (hover: hover) { .faq-list summary:hover { color: var(--red); } }   /* no sticky red after a tap on phones */
+.faq-list details p { padding: 0 52px 24px 0; max-width: 42em; color: var(--ink-soft); }
+
+/* ---------- 22. "Or send your request by email" + the quote link in the phone menu ---------- */
+.send-alt {
+  display: block; margin: 16px auto 0; padding: 4px 2px; background: none; border: 0; cursor: pointer;
+  font-size: 13.5px; font-weight: 600; color: var(--red); text-decoration: underline; text-underline-offset: 4px;
+}
+.send-alt:hover { color: var(--red-deep); }
+.nav .nav-quote { display: none; }   /* on laptops the red "Get a quote" button does this job */
+
+@media (max-width: 1100px) {
+  .about-inner { gap: 48px; }
+}
+
+@media (max-width: 800px) {
+  .about { padding: 80px 0; }
+  .about-inner { grid-template-columns: 1fr; gap: 44px; }
+  .about-photo { width: min(100%, 420px); margin-inline: auto; padding: 14px 0 0 14px; }
+  .about-photo::before { width: calc(100% - 14px); }
+  .faq { padding: 80px 0 84px; }
+  .faq-list summary { font-size: 21px; padding: 18px 44px 18px 0; }
+  .faq-list details p { padding-right: 0; }
+  .nav .nav-quote { display: block; color: var(--red); font-weight: 600; }
+}
+
+/* ---------- 23. Founder note: her words in the About section ---------- */
+.founder-note {
+  position: relative; max-width: 34em; margin: 28px 0 0; padding: 30px 30px 24px;
+  background: #fff; border: 1px solid var(--line);
+}
+.founder-note::before {   /* a big red opening quote mark */
+  content: "\201C"; position: absolute; top: -22px; left: 22px;
+  font-family: var(--font-display); font-size: 76px; line-height: 1; color: var(--red);
+}
+.founder-note blockquote { margin: 0; }
+.about-copy .founder-note blockquote p { margin: 0 0 12px; max-width: none; font-size: 15.5px; line-height: 1.7; color: var(--ink); }
+.about-copy .founder-note blockquote p:first-child {
+  font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: 24px; line-height: 1.3; color: var(--red);
+  font-variant-numeric: lining-nums;   /* "2025" in regular-height numbers */
+}
+.founder-note figcaption {
+  margin-top: 4px; font-size: 11px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-soft);
+}
+.founder-note figcaption::before { content: "— "; letter-spacing: 0; }
+
+@media (max-width: 800px) {
+  .founder-note { padding: 28px 20px 20px; }
+  .about-copy .founder-note blockquote p:first-child { font-size: 21px; }
+}
+
+/* ---------- 24. Tap-to-pick choices: radio buttons dressed as pills ---------- */
+.choices { min-width: 0; margin: 0; padding: 0; border: 0; }
+.choices legend { display: block; padding: 0; margin-bottom: 14px; }
+.chip-list { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { position: relative; display: inline-flex; }
+.chip input {   /* the real radio button: invisible, but it still works with a keyboard and screen readers */
+  position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer;
+}
+.chip span {
+  display: inline-block; padding: 11px 18px; border: 1px solid var(--line); border-radius: 22px;   /* a pill; long text wraps into a rounded box */
+  background: var(--cream); font-size: 14px; font-weight: 500; line-height: 1.5; color: var(--ink);
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+.chip small { margin-left: 4px; font-size: 12.5px; font-weight: 600; color: var(--ink-soft); }
+@media (hover: hover) { .chip:hover span { border-color: var(--red); } }
+.chip input:checked + span { background: var(--red); border-color: var(--red); color: #fff; }
+.chip input:checked + span small { color: rgba(255, 255, 255, .8); }
+.chip input:focus-visible + span { outline: 3px solid var(--red); outline-offset: 2px; }
+.choices.invalid .chip span { border-color: var(--red); }
+.choices .error { margin-top: 10px; }
+
+/* The dropdowns in the booking form: same rounded shape as the pills, in cream */
+.booking .select-field select {
+  appearance: none; -webkit-appearance: none; width: 100%;
+  border: 1px solid var(--line); border-radius: 22px; background-color: var(--cream);
+  padding: 13px 46px 13px 18px; font-family: var(--font-body); font-size: 14.5px; font-weight: 500; color: var(--ink);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23A11B18' stroke-width='1.6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 18px center; cursor: pointer;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+@media (hover: hover) { .booking .select-field select:hover { border-color: var(--red); } }
+.booking .select-field select:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(161, 27, 24, .14); outline: none; }
+.booking .select-field select[aria-invalid="true"] { border-color: var(--red) !important; }
+.booking .select-field .help, .booking .select-field .error { margin-top: 8px; }
+
+@media (max-width: 800px) {
+  .chip-list { gap: 8px; }
+  .chip span { padding: 12px 15px; font-size: 13.5px; }   /* 46px tall: comfortable for thumbs */
+}
+
+/* Very small phones (320px wide, e.g. older iPhone SE) */
+@media (max-width: 359px) {
+  .estimate { padding: 26px 18px; }
+  .total { font-size: 40px; }
+  .field input, .field select { font-size: 24px; }
+  .booking, .booking-done { padding: 26px 16px 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
