@@ -239,8 +239,9 @@ h2 { font-family: var(--font-display); font-weight: 500; font-size: 58px; line-h
 .result .label, .result .was, .result .hint, .result .promo-note, .result .plus { grid-column: 1 / -1; }
 .result .label { margin-bottom: 4px; }
 .was { font-family: var(--font-display); font-size: 24px; color: var(--ink-soft); text-decoration-thickness: 1px; }
-.total { font-family: var(--font-display); font-weight: 500; font-size: 58px; line-height: 1; color: var(--red); }
-.total, .was, .booking-summary { overflow-wrap: anywhere; }   /* a huge guest count wraps instead of pushing the page sideways */
+.total { font-family: var(--font-display); font-weight: 500; font-size: 58px; line-height: 1; color: var(--red); white-space: nowrap; }
+.was, .booking-summary { overflow-wrap: anywhere; }   /* a huge guest count wraps instead of pushing the page sideways */
+.total.long-number { white-space: normal; overflow-wrap: anywhere; }   /* only a wildly unrealistic total (see main.js) is allowed to wrap; a normal price always stays on one line */
 .plus {
   justify-self: start; margin-top: 8px;
   padding: 5px 11px; border-radius: 999px; background: var(--red); color: #fff;

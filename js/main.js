@@ -198,6 +198,7 @@ function updateEstimate() {
   // Below the minimum: show the rule instead of a price
   if (!guests || guests < MIN_GUESTS) {
     totalOutput.textContent = '—';
+    totalOutput.classList.remove('long-number');
     hint.textContent = `Minimum of ${MIN_GUESTS} guests`;
     hint.classList.add('warn');
     promoNote.hidden = true;
@@ -207,7 +208,9 @@ function updateEstimate() {
   const { pkg, full, total, discounted } = calculate(guests, packageSelect.value, eventDate);
   hint.classList.remove('warn');
   hint.textContent = `${guests} guests × ${naira.format(pkg.price)}`;
-  totalOutput.textContent = naira.format(total);
+  const totalText = naira.format(total);
+  totalOutput.textContent = totalText;
+  totalOutput.classList.toggle('long-number', totalText.length > 12);   /* keeps a normal price on one line; only lets a wildly unrealistic total wrap */
 
   if (discounted) {
     // November event: old price crossed out, discounted price shown
