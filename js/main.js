@@ -4,6 +4,11 @@
 // 5 Quick estimate · 6 Booking request · 7 Package buttons · 8 Phone menu
 // =====================================================================
 
+// Everything runs inside this function so none of its names leak into the page's global scope
+// (in-app browsers like Instagram's add their own scripts to pages, and shared names could clash).
+(() => {
+'use strict';
+
 // ---------- 1. Settings: the part you normally edit ----------
 const BUSINESS = {
   whatsapp: '2349077419753',          // her WhatsApp (0907 741 9753): 234 first, drop the leading 0, digits only
@@ -32,10 +37,23 @@ const PROMO = {
 const $ = (selector) => document.querySelector(selector);
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Formats a number as Naira, e.g. 280000 -> "₦280,000"
-const naira = new Intl.NumberFormat('en-NG', {
-  style: 'currency', currency: 'NGN', currencyDisplay: 'narrowSymbol', maximumFractionDigits: 0,
-});
+// Formats a number as Naira, e.g. 280000 -> "₦280,000".
+// Built by hand (plain number + "₦") because the currency option 'narrowSymbol' crashes older iPhones (iOS 14.0 and earlier).
+const nairaNumber = new Intl.NumberFormat(['en-NG', 'en-GB', 'en'], { maximumFractionDigits: 0 });
+const naira = { format: (amount) => `₦${nairaNumber.format(amount)}` };
+
+// Empties an element and puts new content in it (works on older phones, unlike element.replaceChildren)
+function setContent(element, ...content) {
+  element.textContent = '';
+  element.append(...content);
+}
+
+// A <strong> with plain text in it (never HTML, so nothing typed on the page can inject code)
+function strongText(text) {
+  const strong = document.createElement('strong');
+  strong.textContent = text;
+  return strong;
+}
 
 // A date as "YYYY-MM-DD" in the visitor's own timezone: 0 = today, 2 = the day after tomorrow
 function dateFromTodayISO(days) {
@@ -47,7 +65,8 @@ function dateFromTodayISO(days) {
 function todayISO() { return dateFromTodayISO(0); }
 
 // "YYYY-MM-DD" strings compare correctly as text, so no date maths is needed
-const promoIsOver = todayISO() > PROMO.lastDay;
+// The promo ends once the earliest date anyone can still book (48 hours ahead) is after 30 November
+const promoIsOver = dateFromTodayISO(NOTICE_DAYS) > PROMO.lastDay;
 const isNovemberEvent = (dateText) => dateText >= PROMO.firstDay && dateText <= PROMO.lastDay;
 
 // "2026-11-14" -> "14 November" or "Saturday 14 November 2026" (the Nigerian way, whatever the phone shows)
@@ -116,11 +135,17 @@ function addFooterContact(text, href) {
   $('#footer-contact').append(item);
 }
 
+// index.html already lists her contacts, so they still show if this script can't run.
+// When it does run, the list is rebuilt from the Settings above, so Settings stay in charge.
+$('#footer-contact').textContent = '';
+
+const floatButton = $('#wa-float');
 if (whatsappNumber) {
   addFooterContact(`WhatsApp ${prettyPhone(whatsappNumber)}`, whatsappLink());
-  const floatButton = $('#wa-float');
   floatButton.href = whatsappLink('Hello The Yum Cart! ');
   floatButton.hidden = false;
+} else {
+  floatButton.hidden = true;
 }
 
 if (instagramHandle) {
@@ -142,6 +167,9 @@ if (businessEmail) {
 }
 
 if (serviceArea) addFooterContact(`Serving ${serviceArea}`);
+
+// Footer "© 2026": keeps the year current, so the site never looks abandoned
+$('#year').textContent = String(new Date().getFullYear());
 
 // ---------- 4. Anniversary promo: hides itself after 30 November ----------
 if (promoIsOver) {
@@ -185,14 +213,15 @@ function updateEstimate() {
     // November event: old price crossed out, discounted price shown
     wasPrice.textContent = naira.format(full);
     wasPrice.hidden = false;
-    promoNote.innerHTML = `Anniversary discount applied to your ${formatDate(eventDate, { day: 'numeric', month: 'long' })} event: <strong>${PROMO.percent}% off</strong>, you save ${naira.format(full - total)}.`;
+    setContent(promoNote, `Anniversary discount applied to your ${formatDate(eventDate, { day: 'numeric', month: 'long' })} event: `,
+      strongText(`${PROMO.percent}% off`), `, you save ${naira.format(full - total)}.`);
     promoNote.classList.add('applied');
     promoNote.hidden = false;
   } else if (promoIsOver) {
     promoNote.hidden = true;
   } else if (eventDate === '') {
     const novemberPrice = Math.round(full * (100 - PROMO.percent) / 100);
-    promoNote.innerHTML = `Event in November? It's <strong>${naira.format(novemberPrice)}</strong> with our ${PROMO.percent}% anniversary discount.`;
+    setContent(promoNote, "Event in November? It's ", strongText(naira.format(novemberPrice)), ` with our ${PROMO.percent}% anniversary discount.`);
     promoNote.hidden = false;
   } else {
     promoNote.textContent = `Our ${PROMO.percent}% anniversary discount is for events held in November.`;
@@ -224,6 +253,18 @@ const choiceGroup = (name) => document.getElementById(`b-${name}-group`);
 
 fields.date.min = dateFromTodayISO(NOTICE_DAYS);   // date pickers start 48 hours ahead
 
+// Repeats the picked date in words under the box, so 03/11 can't be mistaken for 11 March or 3 November
+const dateWords = $('#b-date-words');
+function updateDateWords() {
+  const picked = fields.date.value;                  // "" until a full, real date is picked
+  dateWords.hidden = !picked;
+  if (picked) {
+    dateWords.textContent = `That's ${formatDate(picked, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}`;
+  }
+}
+fields.date.addEventListener('input', updateDateWords);
+fields.date.addEventListener('change', updateDateWords);
+
 function showBookingForm() {
   bookingDone.hidden = true;
   bookingForm.hidden = false;
@@ -237,15 +278,17 @@ function updateBookingSummary() {
     return;
   }
   const { total, discounted } = calculate(guests, fields.package.value, fields.date.value);
-  const amount = document.createElement('strong');
-  amount.textContent = naira.format(total);
   const extra = discounted ? ` + transport (includes our ${PROMO.percent}% anniversary discount)` : ' + transport';
-  bookingSummary.replaceChildren('Estimated total: ', amount, extra);
+  setContent(bookingSummary, 'Estimated total: ', strongText(naira.format(total)), extra);
   bookingSummary.hidden = false;
 }
 // Any change in the form (typing, picking a package, a date) refreshes the estimate
 bookingForm.addEventListener('input', updateBookingSummary);
 bookingForm.addEventListener('change', updateBookingSummary);
+
+// If the browser put back what someone had typed (after Back or a reload), show the date in words and the estimate again
+updateDateWords();
+updateBookingSummary();
 
 // "Request this quote" in the estimate: carry the numbers into the booking form
 estimateForm.addEventListener('submit', (event) => {
@@ -253,6 +296,7 @@ estimateForm.addEventListener('submit', (event) => {
   if (guestsInput.value) fields.guests.value = guestsInput.value;
   fields.package.value = packageSelect.value;
   if (dateInput.value) fields.date.value = dateInput.value;
+  updateDateWords();
   showBookingForm();
   updateBookingSummary();
   $('#book').scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
@@ -288,7 +332,7 @@ function showProblems(problems) {
     error.hidden = false;
     const group = choiceGroup(name);
     if (group) {
-      group.classList.add('invalid');           // red outline on the choices (the group already points to its error text)
+      group.classList.add('invalid');           // red outline on the choices (its aria-describedby points to the error text)
     } else {
       fields[name].setAttribute('aria-invalid', 'true');
       fields[name].setAttribute('aria-describedby', error.id);
@@ -309,7 +353,7 @@ function setCopyLabel(text, contact) {
   const detail = document.createElement('span');
   detail.className = 'contact-detail';
   detail.textContent = contact;
-  $('#copy-label').replaceChildren(text, detail, ':');
+  setContent($('#copy-label'), text, detail, ':');
 }
 
 // The request she receives, on WhatsApp or by email
@@ -336,8 +380,16 @@ function buildMessage() {
   return lines.join('\n');
 }
 
-// Which send button was tapped. Pressing Enter counts as the WhatsApp button (the first one).
-let sendVia = 'whatsapp';
+// No WhatsApp number in Settings but an email? Then the main button sends by email, and the extra email link isn't needed.
+const mainSendButton = bookingForm.querySelector('button[name="via"]');
+if (!whatsappNumber && businessEmail) {
+  mainSendButton.value = 'email';
+  mainSendButton.textContent = 'Send request by email';
+  $('#send-email').hidden = true;
+}
+
+// Which send button was tapped. Pressing Enter counts as the main button (the first one).
+let sendVia = mainSendButton.value;
 bookingForm.querySelectorAll('button[name="via"]').forEach((button) =>
   button.addEventListener('click', () => { sendVia = button.value; })
 );
@@ -358,11 +410,14 @@ bookingForm.addEventListener('submit', (event) => {
   const openAgain = $('#open-again');                  // "Open WhatsApp again" / "Open my email again"
   const emailButton = $('#email-request');             // "Email it instead"
   const whatsappButton = $('#whatsapp-request');       // "Send on WhatsApp instead"
+  const troubleToggle = $('#trouble-toggle');          // collapsed "Trouble sending? Try another way" wrapper
   if (businessEmail) emailButton.href = emailLink(subject, message);
   if (whatsappNumber) whatsappButton.href = whatsappLink(message);
   openAgain.hidden = true;
   emailButton.hidden = true;
   whatsappButton.hidden = true;
+  troubleToggle.hidden = true;
+  troubleToggle.open = false;
   $('#setup-note').hidden = true;
 
   if (sendVia === 'email' && businessEmail) {
@@ -373,6 +428,7 @@ bookingForm.addEventListener('submit', (event) => {
     openAgain.hidden = false;
     setCopyLabel('Still not opening? Copy your request and email it to ', businessEmail);
     whatsappButton.hidden = !whatsappNumber;
+    troubleToggle.hidden = whatsappButton.hidden;
     window.location.href = emailLink(subject, message);   // opens the email app; this page stays open
   } else if (whatsappNumber) {
     $('#done-text').textContent = "WhatsApp should now be open with your request typed out. Tap Send in WhatsApp, and we'll reply with your quote.";
@@ -383,29 +439,37 @@ bookingForm.addEventListener('submit', (event) => {
     openAgain.hidden = false;
     setCopyLabel('Still not opening? Copy your request and send it to us on ', prettyPhone(whatsappNumber));
     emailButton.hidden = !businessEmail;
+    troubleToggle.hidden = emailButton.hidden;
     const whatsappTab = window.open(whatsappLink(message), '_blank');
     if (whatsappTab) whatsappTab.opener = null;
     else window.location.href = whatsappLink(message);   // pop-up blocked: open it in this tab
   } else {
-    $('#done-text').textContent = 'Your request is ready. Copy it below and send it to us on WhatsApp.';
+    $('#done-text').textContent = 'Your request is ready. Copy it below and send it to us.';   // no WhatsApp or email in Settings
     $('#copy-label').textContent = 'Your request:';
     $('#setup-note').hidden = false;
     emailButton.hidden = !businessEmail;
+    troubleToggle.hidden = emailButton.hidden;
   }
-  sendVia = 'whatsapp';
+  sendVia = mainSendButton.value;                        // next time, Enter uses the main button again
   bookingDone.focus();
 });
 
 $('#copy-message').addEventListener('click', async () => {
   const button = $('#copy-message');
+  let copied = false;
   try {
     await navigator.clipboard.writeText(messageBox.value);
+    copied = true;
   } catch {
-    messageBox.select();                // older phones: select the text and copy it the old way
-    document.execCommand('copy');
+    // Older phones, or apps that block the clipboard: select the text and try the old way
+    messageBox.focus();
+    messageBox.select();
+    messageBox.setSelectionRange(0, messageBox.value.length);   // iPhones need this to select everything
+    try { copied = document.execCommand('copy'); } catch { copied = false; }
   }
-  button.textContent = 'Copied!';
-  setTimeout(() => { button.textContent = 'Copy my request'; }, 2000);
+  // Only say "Copied!" if it really was. Otherwise the text is selected, ready to copy by hand.
+  button.textContent = copied ? 'Copied!' : 'Copy the selected text above';
+  setTimeout(() => { button.textContent = 'Copy my request'; }, copied ? 2000 : 5000);
 });
 
 $('#edit-request').addEventListener('click', () => {
@@ -439,3 +503,4 @@ document.querySelectorAll('#site-nav a').forEach((link) =>
     menuButton.setAttribute('aria-expanded', 'false');
   })
 );
+})();

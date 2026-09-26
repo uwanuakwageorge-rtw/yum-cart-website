@@ -1,0 +1,14 @@
+# Netlify reads this file and adds these headers to the site's responses. It is not published as a page.
+# If you ever add an outside script or embed (Google Analytics, an Instagram embed, a map...),
+# its web address must be added to the Content-Security-Policy line below, or the browser will block it.
+
+/*
+  Content-Security-Policy: default-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self' https://wa.me https://api.whatsapp.com; frame-ancestors 'none'; upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+
+# Font files never change (a new font gets a new file name), so browsers can keep them for a year
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable

@@ -12,36 +12,62 @@
   <meta property="og:site_name" content="The Yum Cart">
   <meta property="og:title" content="The Yum Cart · Mini pancakes made fresh at your event">
   <meta property="og:description" content="Warm mini pancakes cooked at your event, with toppings and drizzles your guests choose. Packages from ₦2,000 per guest.">
-  <meta property="og:image" content="img/share.jpg"><!-- LAUNCH: change to the full address, e.g. https://theyumcart.com/img/share.jpg -->
+  <meta property="og:image" content="https://theyumcart.netlify.app/img/share.jpg"><!-- LAUNCH: update if the custom domain (theyumcart.ng) goes live -->
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://theyumcart.netlify.app/"><!-- LAUNCH: update if the custom domain (theyumcart.ng) goes live -->
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://theyumcart.netlify.app/"><!-- LAUNCH: update if the custom domain (theyumcart.ng) goes live -->
+
+  <!-- Business details for Google (only facts already shown on this page). If her number or email changes, update it here too. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "The Yum Cart",
+    "slogan": "Sweet treat therapy",
+    "description": "A mini pancake cart for events in Port Harcourt. Warm mini pancakes cooked at your event, with toppings and drizzles your guests choose.",
+    "url": "https://theyumcart.netlify.app/",
+    "logo": "https://theyumcart.netlify.app/icons/apple-touch-icon.png",
+    "image": "https://theyumcart.netlify.app/img/share.jpg",
+    "telephone": "+2349077419753",
+    "email": "judithapugo41@gmail.com",
+    "areaServed": { "@type": "City", "name": "Port Harcourt" },
+    "founder": { "@type": "Person", "name": "Apugo Judith" },
+    "foundingDate": "2025-11",
+    "sameAs": ["https://www.instagram.com/theyumcart.ng/"]
+  }
+  </script>
 
   <!-- Tab and home-screen icons -->
   <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 
+  <!-- Start downloading the two fonts the big headline uses straight away (measured: first paint ~0.3 s sooner on slow 4G) -->
+  <link rel="preload" href="fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/cormorant-garamond-latin-500-italic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/styles.css">
+  <noscript><link rel="stylesheet" href="css/noscript.css"></noscript>
   <script src="js/main.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#top">Skip to content</a>
 
   <!-- ANNIVERSARY PROMO: everything marked data-promo hides itself after 30 November (see js/main.js) -->
-  <p class="promo" data-promo>
+  <aside class="promo" aria-label="Anniversary offer" data-promo>
     <span class="promo-label">Our 1st anniversary</span>
     <span class="dot" aria-hidden="true">·</span>
     <strong>10% off every event in November</strong>
     <a class="promo-link" href="#book">Get a quote <span aria-hidden="true">→</span></a>
-  </p>
+  </aside>
 
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="#top" aria-label="The Yum Cart, home">
         <img class="brand-mark" src="logo/mark.svg" alt="" width="60" height="43">
-        <img class="brand-word" src="logo/wordmark.svg" alt="The Yum Cart" width="220" height="44">
+        <img class="brand-word" src="logo/wordmark.svg" alt="The Yum Cart" width="262" height="36">
       </a>
       <nav class="nav" id="site-nav" aria-label="Main">
         <a href="#packages">Packages</a>
@@ -77,8 +103,8 @@
           </ul>
         </div>
         <div class="hero-media">
-          <figure class="photo photo-main"><img src="img/ribbon-boxes.jpg" alt="Boxes of mini pancakes with wooden forks tied with pink ribbons and custom tags"></figure>
-          <figure class="photo photo-alt"><img src="img/crop-oreo-nutella.jpg" alt="Mini pancakes with Oreo crumbs and Nutella"></figure>
+          <figure class="photo photo-main"><img src="img/ribbon-boxes.jpg" fetchpriority="high" width="720" height="1280" alt="Boxes of mini pancakes with wooden forks tied with pink ribbons and custom tags"></figure>
+          <figure class="photo photo-alt"><img src="img/crop-oreo-nutella.jpg" width="440" height="360" alt="Mini pancakes with Oreo crumbs and Nutella"></figure>
           <p class="promo-badge" data-promo><span>1st anniversary</span><strong>10% off</strong><span>November events</span></p>
         </div>
       </div>
@@ -185,7 +211,7 @@
           <h2 id="quote-title">What will it cost?</h2>
           <p>Pick a package and enter your guest count to see what your event will cost.</p>
         </div>
-        <form class="estimate" id="estimate" novalidate>
+        <form class="estimate" id="estimate" action="#book" novalidate>
           <label class="field">
             <span class="label">Number of guests</span>
             <input type="number" id="guests" name="guests" min="50" step="1" value="80" inputmode="numeric">
@@ -199,7 +225,8 @@
               <option value="premium">Premium Yum · ₦5,000</option>
             </select>
           </label>
-          <label class="field">
+          <!-- data-promo: this box only checks the November discount, so it hides with the rest of the promo -->
+          <label class="field" data-promo>
             <span class="label">Event date <em>(optional)</em></span>
             <input type="date" id="event-date" name="date">
             <span class="help">Only needed to check the November discount.</span>
@@ -226,23 +253,27 @@
           <p>Send us your event details at least 48 hours ahead. We'll reply with your final quote.</p>
         </header>
 
-        <form class="booking" id="booking" novalidate>
+        <!-- js/main.js handles sending. The action is only a safety net: if the script can't run, the button opens a
+             WhatsApp chat with her. The boxes have no "name" on purpose, so what customers type is never put into a web address. -->
+        <form class="booking" id="booking" action="https://wa.me/2349077419753" method="get" novalidate>
+          <noscript><p class="noscript-note">JavaScript is turned off in your browser, so this form can't send your details.
+            Message us on <a href="https://wa.me/2349077419753">WhatsApp (0907 741 9753)</a> or email
+            <a href="mailto:judithapugo41@gmail.com">judithapugo41@gmail.com</a> and we'll send your quote.</p></noscript>
           <div class="booking-grid">
             <div class="field">
               <label class="label" for="b-name">Your name</label>
-              <input id="b-name" name="name" type="text" autocomplete="name" required>
+              <input id="b-name" type="text" autocomplete="name" maxlength="80" required>
               <p class="error" id="b-name-error" hidden></p>
             </div>
             <div class="field">
               <label class="label" for="b-phone">Phone / WhatsApp number</label>
-              <input id="b-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="0801 234 5678" required>
+              <input id="b-phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" placeholder="0801 234 5678" required>
               <p class="error" id="b-phone-error" hidden></p>
             </div>
 
-            <!-- Tap-to-pick choices: real radio buttons styled as pills, so only one per group can be picked -->
             <div class="field select-field">
               <label class="label" for="b-type">Type of event</label>
-              <select id="b-type" name="type" required>
+              <select id="b-type" required>
                 <option value="">Choose one</option>
                 <option>Birthday</option>
                 <option>Wedding</option>
@@ -257,19 +288,21 @@
 
             <div class="field">
               <label class="label" for="b-date">Event date</label>
-              <input id="b-date" name="date" type="date" required>
+              <input id="b-date" type="date" required>
+              <!-- The picked date in words, e.g. "That's Saturday 14 November 2026" (phones set to US format show 11/14/2026) -->
+              <p class="help" id="b-date-words" aria-live="polite" hidden></p>
               <p class="error" id="b-date-error" hidden></p>
             </div>
             <div class="field">
               <label class="label" for="b-guests">Number of guests</label>
-              <input id="b-guests" name="guests" type="number" min="50" step="1" inputmode="numeric" required>
+              <input id="b-guests" type="number" min="50" step="1" inputmode="numeric" required>
               <p class="help">Not sure yet? Give your best estimate. We'll reconfirm it with you before the event.</p>
               <p class="error" id="b-guests-error" hidden></p>
             </div>
             <div class="field select-field">
               <!-- Tells her roughly how far the cart travels, so she can agree transport in chat -->
               <label class="label" for="b-location">Event location</label>
-              <select id="b-location" name="location" required>
+              <select id="b-location" required>
                 <option value="">Choose one</option>
                 <option>Elelenwo, Woji or nearby</option>
                 <option>Elsewhere in Port Harcourt</option>
@@ -280,7 +313,8 @@
               <p class="error" id="b-location-error" hidden></p>
             </div>
 
-            <fieldset class="choices field-wide" id="b-package-group">
+            <!-- Package: tap-to-pick pills. They are real radio buttons, so exactly one is always picked -->
+            <fieldset class="choices field-wide" id="b-package-group" aria-describedby="b-package-error">
               <legend class="label">Package</legend>
               <div class="chip-list">
                 <label class="chip"><input type="radio" name="package" value="mini"><span>Mini Yum <small>₦2,000</small></span></label>
@@ -288,26 +322,26 @@
                 <label class="chip"><input type="radio" name="package" value="classic" checked><span>Classic Yum <small>₦3,500</small></span></label>
                 <label class="chip"><input type="radio" name="package" value="premium"><span>Premium Yum <small>₦5,000</small></span></label>
               </div>
+              <p class="error" id="b-package-error" hidden></p>
             </fieldset>
-
 
             <div class="field">
               <label class="label" for="b-venue">Venue name <em>(optional)</em></label>
-              <input id="b-venue" name="venue" type="text" placeholder="Hall, hotel, church, home…">
+              <input id="b-venue" type="text" maxlength="120" placeholder="Hall, hotel, church, home…">
             </div>
             <div class="field">
               <label class="label" for="b-time">Start time <em>(optional)</em></label>
-              <input id="b-time" name="time" type="time">
+              <input id="b-time" type="time">
             </div>
             <div class="field field-wide">
               <label class="label" for="b-address">Venue address</label>
-              <input id="b-address" name="address" type="text" autocomplete="street-address" placeholder="Street, area, city" required>
+              <input id="b-address" type="text" autocomplete="address-line1" maxlength="200" placeholder="Street, area, city" required>
               <p class="error" id="b-address-error" hidden></p>
             </div>
 
             <div class="field select-field">
               <label class="label" for="b-source">How did you hear about us? <em>(optional)</em></label>
-              <select id="b-source" name="source">
+              <select id="b-source">
                 <option value="">Choose one</option>
                 <option>Instagram</option>
                 <option>WhatsApp status</option>
@@ -319,7 +353,7 @@
 
             <div class="field field-wide">
               <label class="label" for="b-notes">Anything else? <em>(optional)</em></label>
-              <textarea id="b-notes" name="notes" rows="3" placeholder="Theme colours, custom tags, dietary needs…"></textarea>
+              <textarea id="b-notes" rows="3" maxlength="500" placeholder="Theme colours, custom tags, dietary needs…"></textarea>
             </div>
           </div>
 
@@ -327,7 +361,7 @@
           <button class="btn btn-primary btn-block" type="submit" name="via" value="whatsapp">Send request on WhatsApp</button>
           <!-- Appears once BUSINESS.email is set in js/main.js -->
           <button class="send-alt" type="submit" name="via" value="email" id="send-email" hidden>Or send your request by email</button>
-          <p class="fine-print">Sending this doesn't book your date yet. We'll confirm availability and your final quote first, then a 75% deposit secures your date.</p>
+          <p class="fine-print">Sending this doesn't book your date yet. We'll confirm availability and your final quote first, then a 75% deposit secures your date. This website doesn't store what you type here: it goes straight to our WhatsApp or email.</p>
         </form>
 
         <!-- Shown after the form is sent -->
@@ -340,11 +374,18 @@
           <textarea id="booking-message" rows="12" readonly></textarea>
           <div class="done-actions">
             <button class="btn btn-ghost" type="button" id="copy-message">Copy my request</button>
-            <a class="btn btn-ghost" id="email-request" href="#" hidden>Email it instead</a>
-            <a class="btn btn-ghost" id="whatsapp-request" href="#" target="_blank" rel="noopener" hidden>Send on WhatsApp instead</a>
             <button class="btn btn-ghost" type="button" id="edit-request">Edit my request</button>
           </div>
-          <p class="setup-note" id="setup-note" hidden>Setup needed: add the business WhatsApp number in js/main.js (BUSINESS.whatsapp), then this button opens WhatsApp.</p>
+          <!-- Alternate channel: tucked away so it doesn't compete with the main action, shown only if it's actually usable -->
+          <details class="trouble" id="trouble-toggle" hidden>
+            <summary>Trouble sending? Try another way</summary>
+            <div class="trouble-actions">
+              <a class="btn btn-ghost" id="email-request" href="#" hidden>Email it instead</a>
+              <a class="btn btn-ghost" id="whatsapp-request" href="#" target="_blank" rel="noopener" hidden>Send on WhatsApp instead</a>
+            </div>
+          </details>
+          <!-- Dev note: shows only if BUSINESS.whatsapp AND BUSINESS.email are both left empty in js/main.js (won't happen once both are filled in, as they are now) -->
+          <p class="setup-note" id="setup-note" hidden>We couldn't set up automatic sending. Please copy your request above and send it to us directly.</p>
         </div>
       </div>
     </section>
@@ -357,12 +398,12 @@
           <h2 id="gallery-title">Fresh from the cart</h2>
         </header>
         <div class="gallery-grid">
-          <figure class="g1"><img src="img/trays.jpg" alt="Seven trays of mini pancakes with different toppings and drizzles" loading="lazy"><figcaption>Pick your toppings</figcaption></figure>
-          <figure class="g2"><img src="img/hand-tray.jpg" alt="A tray of mini pancakes loaded with chocolate chips and sweets" loading="lazy"><figcaption>Loaded up</figcaption></figure>
-          <figure class="g3"><img src="img/crop-biscoff.jpg" alt="Mini pancakes with Biscoff crumbs and a drizzle" loading="lazy"><figcaption>Biscoff crumbs</figcaption></figure>
-          <figure class="g4"><img src="img/crop-marshmallow.jpg" alt="Mini pancakes with marshmallows and a red drizzle" loading="lazy"><figcaption>Marshmallow minis</figcaption></figure>
-          <figure class="g5"><img src="img/redvelvet-nutella.jpg" alt="Two trays of mini pancakes, one with white drizzle and crumbs, one with chocolate drizzle" loading="lazy"><figcaption>Fresh off the pan</figcaption></figure>
-          <figure class="g6"><img src="img/crop-chocochip.jpg" alt="Mini pancakes with chocolate chips and a drizzle" loading="lazy"><figcaption>Chocolate chips</figcaption></figure>
+          <figure class="g1"><img src="img/trays.jpg" width="720" height="1280" alt="Seven trays of mini pancakes with different toppings and drizzles" loading="lazy"><figcaption>Pick your toppings</figcaption></figure>
+          <figure class="g2"><img src="img/hand-tray.jpg" width="720" height="1280" alt="A tray of mini pancakes loaded with chocolate chips and sweets" loading="lazy"><figcaption>Loaded up</figcaption></figure>
+          <figure class="g3"><img src="img/crop-biscoff.jpg" width="360" height="400" alt="Mini pancakes with Biscoff crumbs and a drizzle" loading="lazy"><figcaption>Biscoff crumbs</figcaption></figure>
+          <figure class="g4"><img src="img/crop-marshmallow.jpg" width="400" height="330" alt="Mini pancakes with marshmallows and a red drizzle" loading="lazy"><figcaption>Marshmallow minis</figcaption></figure>
+          <figure class="g5"><img src="img/redvelvet-nutella.jpg" width="600" height="750" alt="Two trays of mini pancakes, one with white drizzle and crumbs, one with chocolate drizzle" loading="lazy"><figcaption>Fresh off the pan</figcaption></figure>
+          <figure class="g6"><img src="img/crop-chocochip.jpg" width="420" height="350" alt="Mini pancakes with chocolate chips and a drizzle" loading="lazy"><figcaption>Chocolate chips</figcaption></figure>
         </div>
         <!-- Filled in by js/main.js once her Instagram handle is added -->
         <p class="gallery-more" id="gallery-more" hidden></p>
@@ -372,7 +413,7 @@
     <!-- ABOUT US -->
     <section class="about" id="about" aria-labelledby="about-title">
       <div class="container about-inner">
-        <figure class="about-photo"><img src="img/cart-team.jpg" alt="The Yum Cart team behind the branded cart at an event" loading="lazy"></figure>
+        <figure class="about-photo"><img src="img/cart-team.jpg" width="1000" height="1250" alt="The Yum Cart team behind the branded cart at an event" loading="lazy"></figure>
         <div class="about-copy">
           <p class="eyebrow">About us</p>
           <h2 id="about-title">Sweet treat therapy, <em>made in Port Harcourt</em></h2>
@@ -450,21 +491,27 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <img class="footer-logo" src="logo/lockup.svg" alt="The Yum Cart, Sweet Treat Therapy">
+      <img class="footer-logo" src="logo/lockup.svg" alt="The Yum Cart, Sweet Treat Therapy" width="230" height="102" loading="lazy">
       <nav class="footer-nav" aria-label="Footer">
         <a href="#packages">Packages</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#book">Get a quote</a>
       </nav>
-      <!-- WhatsApp, Instagram and service area: filled in by js/main.js from BUSINESS settings -->
-      <ul class="footer-contact" id="footer-contact"></ul>
+      <!-- Her contacts. Written out here so they show even if js/main.js can't run;
+           js/main.js rebuilds this list from its BUSINESS settings. If a detail changes, change it in both places. -->
+      <ul class="footer-contact" id="footer-contact">
+        <li><a href="https://wa.me/2349077419753" target="_blank" rel="noopener">WhatsApp 0907 741 9753</a></li>
+        <li><a href="https://www.instagram.com/theyumcart.ng/" target="_blank" rel="noopener">Instagram @theyumcart.ng</a></li>
+        <li><a href="mailto:judithapugo41@gmail.com">Email judithapugo41@gmail.com</a></li>
+        <li>Serving Port Harcourt</li>
+      </ul>
       <p class="small">Mini pancakes for events <span aria-hidden="true">·</span> Minimum 50 guests</p>
-      <p class="small">© 2026 The Yum Cart</p>
+      <p class="small">© <span id="year">2026</span> The Yum Cart</p>
     </div>
-  </footer>
 
-  <!-- Floating WhatsApp chat button: appears once BUSINESS.whatsapp is set -->
-  <a class="wa-float" id="wa-float" hidden target="_blank" rel="noopener" aria-label="Chat with The Yum Cart on WhatsApp">
-    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 3C6.9 3 3 6.6 3 11.1c0 2.3 1 4.4 2.7 5.9L5 21l4.2-1.9c.9.3 1.8.4 2.8.4 5.1 0 9-3.6 9-8.1S17.1 3 12 3z"/></svg>
-    <span>Chat on WhatsApp</span>
-  </a>
+    <!-- Floating WhatsApp chat button (js/main.js adds a greeting to the link, or hides it if BUSINESS.whatsapp is empty) -->
+    <a class="wa-float" id="wa-float" href="https://wa.me/2349077419753" target="_blank" rel="noopener" aria-label="Chat on WhatsApp with The Yum Cart">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 3C6.9 3 3 6.6 3 11.1c0 2.3 1 4.4 2.7 5.9L5 21l4.2-1.9c.9.3 1.8.4 2.8.4 5.1 0 9-3.6 9-8.1S17.1 3 12 3z"/></svg>
+      <span>Chat on WhatsApp</span>
+    </a>
+  </footer>
 </body>
 </html>
